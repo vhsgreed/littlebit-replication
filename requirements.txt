@@ -1,0 +1,5 @@
+numpy
+safetensors
+requests
+torch
+transformers

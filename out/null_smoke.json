@@ -1,0 +1,10 @@
+{
+ "H1_null_not_pass": true,
+ "H2_null_not_pass": true,
+ "H3_null_not_pass": true,
+ "H1_strong_pass": true,
+ "H2_strong_pass": true,
+ "H4_strong_pass": true,
+ "H3_gamma_world_pass": true,
+ "all": true
+}

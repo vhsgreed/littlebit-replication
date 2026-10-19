@@ -1,0 +1,6 @@
+cache/
+vendor/
+.venv/
+out/pilot/
+__pycache__/
+*.npy
