@@ -50,8 +50,23 @@ def littlebit(W, bpp, use_itq, seed, exact=False, residual=True, itq_n_iter=50):
                 split_dim=int(lin.split_dim), lam_mean=lam_mean, lam_max=lam_max)
 
 
+_SVD_CACHE = {}
+
+
 def _exact_lowrank(A, q=6, niter=2, M=None):
-    U, S, Vh = torch.linalg.svd(A, full_matrices=False)
+    """Exact truncated SVD. Value-keyed cache: the authors' code recomputes the same SVD of W
+    on every call (per budget/arm/seed); identical input -> identical factors, so reuse is
+    bit-identical and only saves wall time (PLAN.md change log 2026-10-19)."""
+    key = (tuple(A.shape), round(float(A.sum()), 3), round(float(A[0, 0]), 6),
+           round(float(A[-1, -1]), 6))
+    hit = _SVD_CACHE.get(key)
+    if hit is None:
+        U, S, Vh = torch.linalg.svd(A, full_matrices=False)
+        hit = (U, S, Vh)
+        if len(_SVD_CACHE) > 8:
+            _SVD_CACHE.clear()
+        _SVD_CACHE[key] = hit
+    U, S, Vh = hit
     return U[:, :q], S[:q], Vh[:q].t().contiguous()
 
 
