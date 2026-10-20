@@ -12,4 +12,5 @@ $PY -m lbrep.gate 2>&1 | tee out/gate.log || exit 1
 $PY -m lbrep.synthetic 2>&1 | tee out/h0.log || exit 1
 $PY -m lbrep.run 2>&1 | tee out/main.log || exit 1
 $PY -m lbrep.gate 2>&1 | tee out/gate_final.log || exit 1
+$PY -m lbrep.recheck 2>&1 | tee out/recheck.log || exit 1
 $PY -m lbrep.analyze 2>&1 | tee out/analyze.log

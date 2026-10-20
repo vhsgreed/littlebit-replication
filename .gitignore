@@ -4,3 +4,4 @@ vendor/
 out/pilot/
 __pycache__/
 *.npy
+quarantine/
